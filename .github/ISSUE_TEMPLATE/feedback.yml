@@ -1,0 +1,46 @@
+name: Feedback / critique
+description: Tell us what's wrong with this operating model
+title: "[feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. Blunt is welcome — see [FEEDBACK.md](../blob/main/FEEDBACK.md).
+        Nothing below is required except the last field; fill in what's relevant.
+
+  - type: input
+    id: bet
+    attributes:
+      label: Which open bet does this concern?
+      description: Number from FEEDBACK.md (1–14), or "blind spot" if it's something we didn't list.
+      placeholder: "e.g. 3, or: blind spot"
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of feedback is this?
+      options:
+        - This is wrong, and here's what happens
+        - You're missing something entirely
+        - We solved this differently
+        - Prior art you should read
+        - This is right, and here's why it held up
+        - Something else
+
+  - type: textarea
+    id: body
+    attributes:
+      label: The feedback
+      description: |
+        Most useful shape: what breaks, when it breaks, and what you saw instead.
+        Concrete experience beats general principle.
+      placeholder: "In our team, the advisory gate never became blocking because…"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Your context (optional)
+      description: Team size, domain, how long you've been running agent-driven delivery. Helps us weight the advice.

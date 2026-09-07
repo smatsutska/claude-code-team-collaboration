@@ -1,0 +1,27 @@
+# CODEOWNERS — enforces who approves what (mirrors the autonomy matrix).
+# Replace the handles with the real teams/users of your git platform.
+
+# The spec is the control plane: the analyst writes it, the architect validates it (+ client on the functional part).
+/spec/                     @fa-lead @architect
+
+# Contract and shared model: architect only (impact on Downstream Studio and on the whole system).
+/packages/esl-model/       @architect
+/contracts/                @architect
+
+# Architectural decisions.
+/docs/adr/                 @architect
+
+# Governance: harness, gates, autonomy policy, metrics.
+/governance/               @governance-team
+/metrics/                  @governance-team
+
+# Apps and packages: the developers.
+/apps/                     @dev-team
+/packages/                 @dev-team
+
+# Agent context: changes AI behaviour -> reviewed by the architect together with the devs.
+/CLAUDE.md                 @architect @dev-team
+/.claude/                  @architect @dev-team
+
+# Default.
+*                          @dev-team
