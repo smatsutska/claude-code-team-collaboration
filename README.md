@@ -81,5 +81,4 @@ every design choice here — and is why several of them may be over-cautious.
 
 *By Svitlana Matsutska. This repository shows a way of organising a human team around Claude Code
 on an enterprise modernization programme, where accountability, traceability and client trust are
-not negotiable. Published under MIT so you can lift any part of it — and criticised publicly
-because we would rather be corrected here than in front of the client.*
+not negotiable. Published under MIT so you can lift any part of it.*
