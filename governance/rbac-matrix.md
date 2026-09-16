@@ -24,5 +24,11 @@ exists; UI gating is UX only.
 - **Wave 1** uses only `esl.consult` (everything read-only) — but the full model is defined from the
   start, so later waves don't require RBAC rework.
 - The **draft** is not visible to a Viewer (FR-11): consulting it requires `esl.editDraft`.
-- This matrix is implemented in `apps/sgp/src/auth/types.ts` (`ROLE_CAPABILITIES`). If it changes here,
-  it changes there (and vice versa): keep them aligned.
+- This matrix is mirrored in application code as a `ROLE_CAPABILITIES` map (the app code is not
+  published in this repository — see [`../ANONYMIZATION.md`](../ANONYMIZATION.md)).
+  **This document is authoritative; the code mirrors it.**
+- That mirroring is a hand-maintained duplication, i.e. exactly the drift site that *one fact, one home*
+  warns about. It is not generated, so it is **guarded**: check 5 of
+  [`../scripts/coherence_docs_lint.py`](../scripts/coherence_docs_lint.py) compares the role→capability
+  mapping across every file that declares one and fails the build when two disagree.
+  "Keep them aligned" is not a process — the lint is.

@@ -15,6 +15,10 @@
 /governance/               @governance-team
 /metrics/                  @governance-team
 
+# The gate mechanics. Changing a script changes what the gates actually enforce, so it needs both:
+# governance owns the policy, the devs own that it keeps working.
+/scripts/                  @governance-team @dev-team
+
 # Apps and packages: the developers.
 /apps/                     @dev-team
 /packages/                 @dev-team

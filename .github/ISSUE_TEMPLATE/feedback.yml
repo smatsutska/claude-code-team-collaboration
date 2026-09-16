@@ -6,15 +6,20 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time. Blunt is welcome — see [FEEDBACK.md](../blob/main/FEEDBACK.md).
+        Thanks for taking the time. Blunt is welcome.
+
+        Wave 0 has now been run: the scoreboard is in [W0-RESULTS.md](../blob/main/W0-RESULTS.md),
+        the fourteen bets in full are in [FEEDBACK.md](../blob/main/FEEDBACK.md).
         Nothing below is required except the last field; fill in what's relevant.
 
   - type: input
     id: bet
     attributes:
-      label: Which open bet does this concern?
-      description: Number from FEEDBACK.md (1–14), or "blind spot" if it's something we didn't list.
-      placeholder: "e.g. 3, or: blind spot"
+      label: Which bet or finding does this concern?
+      description: |
+        A bet number from FEEDBACK.md (1–14), a finding letter from W0-RESULTS.md (A–E),
+        or "blind spot" if it is something nobody listed.
+      placeholder: "e.g. 12, or: finding B, or: blind spot"
 
   - type: dropdown
     id: kind

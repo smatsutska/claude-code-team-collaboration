@@ -1,5 +1,11 @@
 # Tear this apart
 
+> **Update — wave 0 has now been executed.** This document is unchanged in substance: the fourteen
+> bets below are exactly as published *before* the first wave ran, which is the only thing that makes
+> the answers worth anything. Each bet now carries its outcome.
+> **The scoreboard, the caveats and the five findings that were on nobody's list are in
+> [`W0-RESULTS.md`](W0-RESULTS.md).** Read that first; come back here for the full reasoning.
+
 We are two principal AI architects setting up a digitalization and modernization programme for the
 engineering function of an energy & utility EPC contractor. We know the sector. We know how to run
 programmes the traditional way. We have designed the operating model in this repository to run that
@@ -31,7 +37,8 @@ Answers that say "this is good" are the least useful thing you can give us. Answ
 | **Prior experience** | **None of them has worked in an agent-driven flow before.** Traditional waterfall-ish and Scrum backgrounds. |
 | **Commercial frame** | A proof of concept that must demonstrate value against a traditional baseline estimate of roughly `<N>` person-days over `<M>` months. The PoC has to *prove* the delivery model, not just ship the software. |
 | **Client posture** | Conservative. Engineering data governance is high-consequence: a wrong standard released downstream propagates into plant design. |
-| **Status right now** | The harness is built and nine specs are seeded. **Wave 1 has not been executed through it yet.** All specs are `Draft`, CI is not wired, the metrics are deliberately undefined. We are asking *before* the first real cycle, not after. |
+| **Status when the bets were written** | The harness was built and nine specs seeded. **Wave 0 had not been executed through it.** All specs `Draft`, CI not wired, metrics deliberately undefined. We asked *before* the first real cycle. |
+| **Status now** | **Wave 0 executed, demonstrated to the client, measured.** Six foundation specs Approved and merged, CI wired and blocking, first official data version loaded, three new gates. Measured uplift 82% vs baseline — [with caveats that matter more than the number](W0-RESULTS.md#what-the-data-says). **The seven-person team has still not operated the model.** |
 
 ## What we believe we got right (please attack these first)
 
@@ -52,6 +59,10 @@ Answers that say "this is good" are the least useful thing you can give us. Answ
 
 We would rather list these than have you discover we were pretending.
 
+> **How these four aged through wave 0:** the first is still untested — the governance layer was barely
+> exercised. The second is **unchanged and unaddressed**: nine days, five new gates, nothing for the
+> plan review. The third resolved in our favour. The fourth got worse before it got fixed.
+
 - The **governance-to-builder ratio is 3:2**. Three supervisors for two developers. On paper it is
   "the harness needs custodians". In practice it may be a committee inspecting a two-person team.
 - **We wrote our own escape hatch.** [`docs/lifecycle.md`](docs/lifecycle.md) says the plan review is
@@ -61,12 +72,34 @@ We would rather list these than have you discover we were pretending.
   data". That is defensible pragmatism and also exactly what a team that never gets a baseline says.
 - **There is a known inconsistency sitting in the traceability index** (FR-08's use case field). We
   left it visible on purpose, but we have no process that guarantees it gets closed.
+  *Wave 0 answered this one the hard way: the index drifted again, in company — statuses, inline
+  totals, dead references, arithmetic that stopped adding up. The fix was not discipline. The index is
+  now **generated** from spec front-matter, with a drift check in CI.*
 
 ---
 
 ## The fourteen open bets
 
 Each one: what we chose, why, and **what would prove us wrong**. Cite the number when you respond.
+
+**Where each one stands after wave 0** — full reasoning in [`W0-RESULTS.md`](W0-RESULTS.md):
+
+| Bet | Outcome |
+|---|---|
+| #1 LLM coherence check as a gate | **partial** — caught 2 spec-drifts, missed an entire drift class; we added a deterministic lint beside it |
+| #2 `FR-XX/ACn` traceability real or theatre | **untested** — same people wrote specs and tests, which is the one condition that cannot test it |
+| #3 Do advisory gates ever become blocking | **reframed** — wrong question. Gates split by nature, not by maturity |
+| #4 `/reconcile` rescues or legitimises vibecoding | **no signal** — 0 invocations, 6/6 spec-first, and the operators wrote the rule |
+| #5 Autonomy matrix too conservative | **untested** — the team has not operated it |
+| #6 Governance layer three times too big | **untested** — the governance layer was barely exercised |
+| #7 Markdown specs survive 28 requirements | **no, as predicted** — the index drifted again within days. Fix: generate it, never write it |
+| #8 Keep `CLAUDE.md` lean, and where is the line | **losing** — it grew, because the agent needed it to |
+| #9 Refusing multi-agent orchestration | **held** — nothing broke, which is not evidence |
+| #10 Defining metrics later | **we were right** — the baseline was captured, the dashboard is generated |
+| #11 Does hybrid rigor hold | **untested** — every wave-0 spec was `rigor: full`; the pressure has not arrived |
+| #12 What makes plan review happen | **still open, nothing added** — and that is the finding |
+| #13 Security posture labelled safe | **changed shape** — security became a pillar; the original risk is still live |
+| #14 Client as first-pass tester | **untested**, and a related contradiction surfaced: three documents disagree on whether the client approves |
 
 ### 1. Can an LLM coherence check actually work as a gate?
 `/coherence` gives Claude three inputs — the referenced specs, the touched tests, the diff — and asks
@@ -187,9 +220,20 @@ Some directions we suspect we're weak in, without being able to judge ourselves:
 
 If your reaction to any of those is "that's the one that will actually hurt you" — say so, and say why.
 
+> **Wave 0 settled the value of this question.** Five findings emerged that were absent from both the
+> fourteen bets *and* the six blind spots above — a stack that passed every check and would not start,
+> documentation drift as the dominant failure mode, gates that were documented but wired to nothing, a
+> client slide overriding an architecture decision record, and a governance contradiction a script can
+> detect but not resolve. See [`W0-RESULTS.md`](W0-RESULTS.md).
+> The list was not the problem. *Having only our own eyes on it* was.
+>
+> All six blind spots above remain unaddressed, including change management — which is now the
+> load-bearing one, because the seven-person team is next.
+
 ## How to give feedback
 
-Open an issue. There is a template with the questions above, and the bet numbers are stable references.
+**→ [Open an issue](../../issues/new/choose).** There is a template with the questions above, and the
+bet numbers are stable references.
 Prose in an issue is perfectly fine; a pull request that edits the document you disagree with is even
 better, because it shows us the alternative rather than describing it.
 

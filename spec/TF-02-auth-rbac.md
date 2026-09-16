@@ -7,7 +7,7 @@ screens:         []
 wave:            W0
 size:            L
 scope:           In Scope
-status:          Draft
+status:          Approved  # dev-mode: the real SSO impl is Out of scope, blocked on an open point
 owner:           <architect>
 approvers:       [architect, FA-lead]
 depends_on:      [TF-01]
@@ -16,7 +16,8 @@ roles:           [Admin, Approver, Editor, Viewer]
 contract_impact: none
 rigor:           full
 ---
-<!-- SEED — refine with: /spec TF-02 -->
+<!-- Approved and merged in wave 0, dev-mode. The real SSO implementation is Out of scope on this
+     spec (blocked on an external dependency) and does not gate its acceptance criteria. -->
 
 ## Context
 The authentication and authorization foundation of SGP. The role/capability model is permanent; the
@@ -63,6 +64,8 @@ AC5 — Swap to SSO without touching the app
 - IdP claims/groups not mappable to a role (in SSO) -> access denied with an explicit message
 
 ## Notes
-- Capability model: `governance/rbac-matrix.md` (authoritative) ↔ `apps/sgp/src/auth/types.ts` (impl). Keep aligned.
+- Capability model: `governance/rbac-matrix.md` is **authoritative**; the `ROLE_CAPABILITIES` map in
+  application code mirrors it. The duplication is guarded by check 5 of the documentation coherence
+  lint (role-mapping drift), not by anyone remembering to keep them aligned.
 - Frontend gating is UX; real security is server-side.
 - `DevAuthProvider` is disposable (ADR-0002); remove it from production builds when SSO arrives.

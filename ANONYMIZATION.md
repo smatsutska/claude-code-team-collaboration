@@ -26,10 +26,35 @@ would be worthless.
 | Client RBAC source document | *(deck, slide reference)* | "the client's RBAC matrix document" |
 | Capability namespace | `<acronym>.consult` etc. | `esl.consult`, `esl.editDraft`, `esl.approve` |
 | Domain skill name | `<acronym>-domain` | `esl-domain` |
+| **Named individuals** (client team members appearing in wave planning) | *(real surnames)* | replaced by role — "the data owner", "the client's functional team" |
+| Client's security-by-design checklist | *(named internal standard)* | "the client's security-by-design checklist" |
 
 The three cluster acronyms deserve a note: in the original they are opaque internal terms. We renamed
 them to **S**tandard / **C**lient / **T**ool Data Cluster, which is both anonymous and more legible
 than the original — the only place where the public version reads better than the real one.
+
+## Disclosure policy for figures
+
+Added when wave-0 results were published, because that is when the repository first carried numbers
+worth protecting.
+
+| Figure | Treatment | Why |
+|---|---|---|
+| Effort (baseline, estimate, actual) | **Indexed to the traditional baseline = 100** | Every ratio the argument rests on survives indexing. Absolute person-days are commercial |
+| Programme totals, capacity, cost | **Not published** | Close to contract terms |
+| Data volumes (rows loaded/rejected) | **Proportions only** (`~2% rejected`) | Absolute counts describe the size of the client's data estate |
+| Process counts (spec-first PRs, contradictions by kind, `/reconcile` invocations) | **Published verbatim** | They describe our own process, not the client, and they are the actual evidence |
+
+`scripts/gen_metrics.py` in this repository computes from indexed inputs. The working version reads
+absolute person-days. The arithmetic is otherwise identical.
+
+## What was kept that you might expect to be removed
+
+**The technology stack is real**: Oracle, AKS, Azure API Management, Microsoft Entra ID, React. These
+are a common enterprise platform combination and identify nobody. More to the point,
+[ADR-0003](docs/adr/0003-architecture-stack-ratified-from-the-deck.md) is only instructive if the
+stack is concrete — the finding is that a client slide overrode an architecture decision record, and
+that story does not survive abstraction into "a database" and "a cloud".
 
 ## What was deliberately kept
 
@@ -53,8 +78,14 @@ than the original — the only place where the public version reads better than 
 - Client data, engineering standards content, personal data, or anything from the actual library.
 - Screens and Figma files (referenced by `SCR-xx` identifiers only).
 - Contract terms, commercial figures, names of individuals other than the author.
-- Application code beyond a thin auth/RBAC slice, included because it demonstrates the
-  spec → RBAC matrix → typed code chain that the method claims to produce.
+- **Application code.** The working repository now contains a data model, a migration engine, an Excel
+  engine and API services. None of it is here: it is domain-specific to the client's data estate and
+  carries anonymization risk out of proportion to what it would teach.
+  What *is* published is [`scripts/`](scripts/) — the four scripts that implement the gates. Those are
+  the transferable part, and they are reproduced with their logic intact, including the two
+  `HARDENED` fixes made after the gate produced false positives on real documents.
+  *(An earlier version of this repository carried a thin auth/RBAC slice. It was removed when the
+  harness scripts were added, to keep the code perimeter to one honest purpose.)*
 
 ## Translation
 
