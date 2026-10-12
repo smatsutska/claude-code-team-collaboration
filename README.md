@@ -1,7 +1,7 @@
 # claude-code-team-collaboration
 
-**Seven people and an agent on a real modernization programme — fourteen bets published before the
-first wave, and the scoreboard after it.**
+**A real modernization programme run with Claude Code: bets registered before each wave, scoreboards
+published after it.**
 
 One of a series documenting how I work with Claude Code, each repository focused on one topic.
 This one is about **team collaboration**: how a mixed human team and Claude Code divide work,
@@ -9,27 +9,30 @@ decision rights and accountability on a digitalization programme for the enginee
 of an energy & utility EPC contractor.
 
 > **This is not a showcase.** It is an operating model designed by two principal AI architects with
-> strong traditional-delivery instincts and limited scar tissue in AI-powered delivery. We published
-> it with fourteen open bets **before running anything through it**, and asked to be taken apart.
+> strong traditional-delivery instincts. We published it with fourteen open bets **before running
+> anything through it**, and asked to be taken apart.
 >
-> **Wave 0 has now been executed, demonstrated and measured.**
+> **Waves 0 and 1 have been executed, demonstrated and signed off**, out of five. After wave 1 an
+> outside-in review found that the operating model on paper was not the one being executed. Then
+> **trial 3** tested the question that leaves: does the method work without its author?
 >
-> **→ Start at [W0-RESULTS.md](W0-RESULTS.md).** Four bets answered, one reframed, nine still open —
-> and five findings that were on nobody's list, including ours.
+> **→ Start at [TRIAL-3-RESULTS.md](TRIAL-3-RESULTS.md).** The method transferred **construction**
+> to a second developer, but not **governance**. The bets it was measured against are in
+> [W2-BETS.md](W2-BETS.md), registered before the trial; the wave history is in
+> [W1-RESULTS.md](W1-RESULTS.md) and [W0-RESULTS.md](W0-RESULTS.md).
 
 ---
 
-## What we got wrong, in one table
-
-The short version of the scoreboard, because it is the reason to read further:
+## Where it stands, in one table
 
 | | |
 |---|---|
-| **Measured uplift vs traditional baseline** | **82%** — and the caveat that matters more than the number: wave 0 was run by the harness's *designers*, not by the seven-person team the model is written for |
-| **The bet we reframed** | "Advisory gates become blocking when the data says so" was the wrong question. Gates split by **nature**: deterministic ones block on day one, LLM-reasoned ones stay advisory by design |
-| **The failure we did not predict** | Documentation drift, not code drift. The agent produces cross-referenced documents faster than humans keep them coherent |
-| **The thing that embarrassed us most** | Our gates were **documented but not wired**. They executed nothing while passing every governance review |
-| **Still unanswered after nine days and five new gates** | What actually makes a plan review happen. We protected everything scriptable and nothing that wasn't |
+| **Measured build uplift vs traditional baseline** | **82%** in wave 0, **76%** in wave 1. Two caveats matter more than the numbers: every governed line was built by **the method's own author**, and only build effort is measured, so the uplift is a **ceiling** |
+| **The strongest finding** | **The spec alone is not a control plane.** Two developers implementing the same approved spec produced two different systems. It took the spec **plus** architecture rules **plus** a versioned contract to make them converge |
+| **What embarrassed us most** | The operating model document was never edited after the first commit, and the real one had drifted away from it. **No gate compared the declared model with git history** |
+| **The pattern that keeps coming back** | Guards that are green while checking the wrong thing. The rule now: every new check is verified **by breaking it** |
+| **What trial 3 showed** | A second developer built a full FR in 28 hours from the readiness gate: 2 questions to the architect against a cap of 5, zero structural defects, zero lines from the architect. **But** the PR was merged 24 seconds after opening, before review, and 0 of 10 later merges had a native review. Mechanical controls transferred; human procedures did not |
+| **What is still unproven** | That the method is cheaper in someone else's hands (effort not yet measured), that governance transfers, and that the client signs off independently (bet **#17**) |
 
 ## The thesis this setup embodies
 
@@ -37,64 +40,71 @@ The short version of the scoreboard, because it is the reason to read further:
 Claude Code produces inside declared boundaries; spec↔code coherence is an **invariant enforced
 mechanically**, not an activity someone remembers to do.
 
-The corollary we are betting on: in AI-powered delivery, humans move *up* the value chain — from
+The corollary we are betting on: in AI-powered delivery, humans move *up* the value chain, from
 *producing* to *specifying, verifying, deciding*. Claude Code is connective tissue, **never** a
-decision-maker. Recognition of authority is delegated to the platform (SSO, git, CODEOWNERS, CI),
-never to the model.
+decision-maker. Recognition of authority belongs to the platform (SSO, git, CODEOWNERS, CI), never
+to the model.
 
-Wave 0 supports the thesis and does not yet test it: the people who wrote it were the people who ran it.
+**What two waves changed:**
+
+- The control plane turned out to need more than the spec: architecture rules and a versioned
+  contract as well (finding **F**).
+- Platform-enforced authority is **not yet available** to us, so today it is a convention checked
+  after every merge (bet **#15**).
 
 ## The flow, in one diagram
 
 ```
-spec (FA) ──G1──> plan (dev) ──> build+test (dev+AI) ──gate 3──> PR
+spec (FA) ──G1──> plan (dev) ──> build+test (dev+AI) ──visual review 1b──gate 3──> PR
    └─ /reconcile ← orphan code (vibecoding) re-enters here
-PR ──> merge ──contract test──> UAT (client) ──wave sign-off──> done
+PR ──> merge ──contract test──> verification ──wave sign-off──> done
 ```
 
-**Blocking:** G1 (incl. no open blocking point), docs lint (3b), demo-smoke (S), security floor,
-contract test, wave sign-off.
-**Advisory by design:** the coherence gate — it reasons, so a human judges its report.
+**Blocking** (by convention today: red does not go to `main`): G1, docs lint (3b), integration
+smoke (S), security floor, contract test, wave sign-off.
+**Advisory by design:** the coherence gate. It reasons, so a human judges its report. Whether that
+should change is bet **#20**.
 
 ## How to navigate
 
-| Folder | What it holds |
+| Where | What it holds |
 |---|---|
-| [`W0-RESULTS.md`](W0-RESULTS.md) | **The scoreboard.** What happened, which bets survived, what we did not see coming. Read first. |
-| [`FEEDBACK.md`](FEEDBACK.md) | **The ask.** Situation, the fourteen bets in full, how to respond. |
-| [`scripts/`](scripts/) | The mechanics of the gates — what turned a written model into an executing one. |
-| [`governance/`](governance/) | Operating model, autonomy matrix, quality gates, Definition of Ready, coherence gate, open points, RBAC. |
+| [`TRIAL-3-RESULTS.md`](TRIAL-3-RESULTS.md) | **The latest scoreboard.** Trial 3: a second developer builds with the method. Findings M–R. Read first. |
+| [`W2-BETS.md`](W2-BETS.md) | Bets #15–#23 on governance, registered before trial 3, with thresholds and the trial design. |
+| [`W1-RESULTS.md`](W1-RESULTS.md) | The wave-1 scoreboard, the outside-in review, findings F–L. |
+| [`W0-RESULTS.md`](W0-RESULTS.md) | The wave-0 scoreboard and findings A–E. |
+| [`FEEDBACK.md`](FEEDBACK.md) | The original ask: the situation, bets #1–#14 in full, how to respond. |
+| [`governance/`](governance/) | Operating model (today vs target), quality gates, Definition of Ready, open points, RBAC, security. |
+| [`scripts/`](scripts/) | The mechanics of the gates: what turned a written model into an executing one. |
+| [`metrics/`](metrics/) | The measurement. Actuals per wave, dashboard **generated** from them. |
 | [`.claude/`](.claude/) | Agent context: `commands/` (the team's workflow) and `skills/` (domain, loaded on demand). |
-| [`CLAUDE.md`](CLAUDE.md) | Root agent context. Was deliberately lean — see bet #8, which we are losing. |
-| [`spec/`](spec/) | The specifications: the "new source code". Seeded specs + template + generated traceability. |
-| [`docs/`](docs/) | FR lifecycle, testing convention, ADRs, wave planning. |
-| [`metrics/`](metrics/) | The measurement. Actuals hand-filled, dashboard **generated** from them. |
-| [`contracts/`](contracts/) | The versioned boundary towards the downstream consuming system. |
+| [`CLAUDE.md`](CLAUDE.md) | Root agent context. It claims to be lean; see bet #8, which we are losing. |
+| [`spec/`](spec/) · [`docs/`](docs/) · [`contracts/`](contracts/) | Specifications, lifecycle and ADRs, the downstream contract. |
 | [`ANONYMIZATION.md`](ANONYMIZATION.md) | Exactly what was renamed, and the disclosure policy for figures. |
 
-## The team being designed for
+## The team: designed vs actual
 
-| Role | Count | Owns |
+| | Designed | Actual, after trial 3 |
 |---|---|---|
-| Developer | 2 | Spec-author, Claude Code orchestrator, reviewer. Technical integrity. |
-| Functional Analyst / Tester | 2 | The spec and the acceptance criteria. Owns gate G1. |
-| Governance / Supervisor | 3 | The harness itself: autonomy policy, gates, security, PoC metrics. |
-| Client engineering team | — | First-pass functional verification and domain sign-off. |
+| Developers | 2 | 1 full-time; in wave 1, deliberate parallel trials not merged; in trial 3, one FR built and merged |
+| Builder of governed code | the developers | mostly the **architect**, part-time, with Claude Code; since trial 3, also the developer |
+| Functional analysts | 2 | a 3-person functional team; decides in chat and meetings, signs specs |
+| Governance | 3 | 2, one of whom is the architect |
+| Client | first-pass verification and sign-off | no named referent yet |
 
-None of them had worked in an agent-driven flow before this programme. That constraint shapes every
-design choice here — and **none of them operated wave 0**, which is the main limit of everything
-measured so far.
+None of them had worked in an agent-driven flow before this programme. The gap between the two
+columns is the main limit of everything measured so far. Trial 3 narrowed it for construction, not
+yet for governance.
 
 ## Reading order we suggest
 
-1. [`W0-RESULTS.md`](W0-RESULTS.md) — what happened, and the five findings nobody had on their list.
-2. [`FEEDBACK.md`](FEEDBACK.md) — the fourteen bets in full, and what we are asking.
-3. [`governance/quality-gates.md`](governance/quality-gates.md) — the gate taxonomy that replaced
-   "advisory → blocking".
-4. [`scripts/`](scripts/) — the four scripts that made the gates real.
-5. [`governance/operating-model.md`](governance/operating-model.md) — roles, decision rights, autonomy matrix.
-6. [`docs/adr/0003-architecture-stack-ratified-from-the-deck.md`](docs/adr/0003-architecture-stack-ratified-from-the-deck.md)
-   — how a client slide overrode an architecture decision record, and why our own readiness gate missed it.
+1. [`TRIAL-3-RESULTS.md`](TRIAL-3-RESULTS.md): what happened when someone else built with the method.
+2. [`W2-BETS.md`](W2-BETS.md): the governance bets it was measured against.
+3. [`W1-RESULTS.md`](W1-RESULTS.md): what wave 1 taught, including what we got wrong.
+4. [`governance/operating-model.md`](governance/operating-model.md): who does what today, and the target.
+5. [`governance/quality-gates.md`](governance/quality-gates.md): the gate taxonomy, what the gates
+   caught, and the rule for removing one.
+6. [`W0-RESULTS.md`](W0-RESULTS.md) and [`FEEDBACK.md`](FEEDBACK.md): where it started.
 
 ---
 

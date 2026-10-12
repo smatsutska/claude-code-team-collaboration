@@ -1,10 +1,13 @@
 # Tear this apart
 
-> **Update — wave 0 has now been executed.** This document is unchanged in substance: the fourteen
-> bets below are exactly as published *before* the first wave ran, which is the only thing that makes
-> the answers worth anything. Each bet now carries its outcome.
-> **The scoreboard, the caveats and the five findings that were on nobody's list are in
-> [`W0-RESULTS.md`](W0-RESULTS.md).** Read that first; come back here for the full reasoning.
+> **Update: waves 0 and 1 have now been executed.** This document is unchanged in substance. The
+> fourteen bets below are exactly as published *before* the first wave ran, which is the only thing
+> that makes the answers worth anything.
+> **Scoreboards:** [`W0-RESULTS.md`](W0-RESULTS.md) (findings A–E) and [`W1-RESULTS.md`](W1-RESULTS.md)
+> (findings F–L, plus where each bet stands now).
+> **Next bets:** [`W2-BETS.md`](W2-BETS.md), #15–#23, on governing the method, registered with
+> thresholds before trial 3. **Trial 3 results:** [`TRIAL-3-RESULTS.md`](TRIAL-3-RESULTS.md)
+> (findings M–R).
 
 We are two principal AI architects setting up a digitalization and modernization programme for the
 engineering function of an energy & utility EPC contractor. We know the sector. We know how to run
@@ -38,7 +41,7 @@ Answers that say "this is good" are the least useful thing you can give us. Answ
 | **Commercial frame** | A proof of concept that must demonstrate value against a traditional baseline estimate of roughly `<N>` person-days over `<M>` months. The PoC has to *prove* the delivery model, not just ship the software. |
 | **Client posture** | Conservative. Engineering data governance is high-consequence: a wrong standard released downstream propagates into plant design. |
 | **Status when the bets were written** | The harness was built and nine specs seeded. **Wave 0 had not been executed through it.** All specs `Draft`, CI not wired, metrics deliberately undefined. We asked *before* the first real cycle. |
-| **Status now** | **Wave 0 executed, demonstrated to the client, measured.** Six foundation specs Approved and merged, CI wired and blocking, first official data version loaded, three new gates. Measured uplift 82% vs baseline — [with caveats that matter more than the number](W0-RESULTS.md#what-the-data-says). **The seven-person team has still not operated the model.** |
+| **Status now** | **Waves 0 and 1 executed, demonstrated and signed off** (of five). Measured build uplift 82% and 76% vs baseline, [with caveats that matter more than the numbers](W1-RESULTS.md#what-the-data-says). The team that actually ran it is smaller than the one designed, and every governed line was built by the method's author. [Finding K](W1-RESULTS.md#k--the-operating-model-on-paper-was-not-the-one-being-executed) describes the gap; trial 3 tests it. |
 
 ## What we believe we got right (please attack these first)
 
@@ -82,7 +85,9 @@ We would rather list these than have you discover we were pretending.
 
 Each one: what we chose, why, and **what would prove us wrong**. Cite the number when you respond.
 
-**Where each one stands after wave 0** — full reasoning in [`W0-RESULTS.md`](W0-RESULTS.md):
+**Where each one stood after wave 0**, kept as the historical record. Full reasoning is in
+[`W0-RESULTS.md`](W0-RESULTS.md); **the wave-1 update is in
+[`W1-RESULTS.md`](W1-RESULTS.md#the-fourteen-bets-after-wave-1)**:
 
 | Bet | Outcome |
 |---|---|

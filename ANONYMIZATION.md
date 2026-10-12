@@ -27,6 +27,7 @@ would be worthless.
 | Capability namespace | `<acronym>.consult` etc. | `esl.consult`, `esl.editDraft`, `esl.approve` |
 | Domain skill name | `<acronym>-domain` | `esl-domain` |
 | **Named individuals** (client team members appearing in wave planning) | *(real surnames)* | replaced by role — "the data owner", "the client's functional team" |
+| **Named individuals** (delivery team, from wave 1) | *(real names)* | replaced by role: "the developer", "the functional team". The architect is the author of this repository and is referred to by role |
 | Client's security-by-design checklist | *(named internal standard)* | "the client's security-by-design checklist" |
 
 The three cluster acronyms deserve a note: in the original they are opaque internal terms. We renamed
@@ -43,10 +44,31 @@ worth protecting.
 | Effort (baseline, estimate, actual) | **Indexed to the traditional baseline = 100** | Every ratio the argument rests on survives indexing. Absolute person-days are commercial |
 | Programme totals, capacity, cost | **Not published** | Close to contract terms |
 | Data volumes (rows loaded/rejected) | **Proportions only** (`~2% rejected`) | Absolute counts describe the size of the client's data estate |
-| Process counts (spec-first PRs, contradictions by kind, `/reconcile` invocations) | **Published verbatim** | They describe our own process, not the client, and they are the actual evidence |
+| Process counts (spec-first PRs, contradictions by kind, `/reconcile` invocations, CI runs, change requests) | **Published verbatim** | They describe our own process, not the client, and they are the actual evidence |
+| Per-person effort | **Never published**, and since wave 1 also removed from the working repository, which is bound for the client's platform | Hours of identifiable people are not evidence about the method |
+| Staffing | **"part-time" / "full-time"** instead of allocation percentages | Enough to read the team shape; not a staffing plan |
+| Investment and cost per person-day | **Not published** | Commercial. Ratios such as "31% of the plan" are published instead |
 
 `scripts/gen_metrics.py` in this repository computes from indexed inputs. The working version reads
 absolute person-days. The arithmetic is otherwise identical.
+
+## Attribution policy (from trial 3)
+
+Trial 3 measured one named role doing one piece of work, which makes individuals easy to identify
+from the inside even without names. So from trial 3 onwards:
+
+- **Defects and lapses are attributed to the method**, and described as what the flow allowed, not
+  as what a person did. A PR "was merged before review"; the text does not say by whom.
+- **The only decisions attributed to someone are the author's own**: the architect's waivers and
+  approvals, which she owns.
+- **No platform handles, PR authors or commit authors** are reproduced. PR counts and timings are
+  published; who opened or merged a given PR is not.
+- **No working conditions of individuals** (tools, connectivity, allocation) are described, only
+  their effect on the evidence ("review happened outside the platform and was transcribed").
+- **No client-side systems** outside the stated technology stack are named: ticketing, identity
+  registrations and similar operational details stay out.
+- **Reviews of the trial's own results** are reported as having taken place, without saying who
+  reviewed what.
 
 ## What was kept that you might expect to be removed
 
@@ -86,6 +108,13 @@ that story does not survive abstraction into "a database" and "a cloud".
   `HARDENED` fixes made after the gate produced false positives on real documents.
   *(An earlier version of this repository carried a thin auth/RBAC slice. It was removed when the
   harness scripts were added, to keep the code perimeter to one honest purpose.)*
+- **The scripts added in wave 1.** The working repository now has more generators and guards than
+  the four published here: views of the open-points and change-request registers, an architecture
+  lint, an interface-contract check, a process-metrics counter, a CI runner shared by two platforms.
+  They are described in [`W1-RESULTS.md`](W1-RESULTS.md) and
+  [`governance/quality-gates.md`](governance/quality-gates.md) but not reproduced, because they are
+  tied to the client's data model. `scripts/gen_metrics.py` is the exception: it was extended here
+  to cover several waves.
 
 ## Translation
 

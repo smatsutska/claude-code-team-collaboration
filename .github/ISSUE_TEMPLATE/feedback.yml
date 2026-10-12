@@ -8,8 +8,11 @@ body:
       value: |
         Thanks for taking the time. Blunt is welcome.
 
-        Wave 0 has now been run: the scoreboard is in [W0-RESULTS.md](../blob/main/W0-RESULTS.md),
-        the fourteen bets in full are in [FEEDBACK.md](../blob/main/FEEDBACK.md).
+        Waves 0 and 1 have been run. Scoreboards: [W0-RESULTS.md](../blob/main/W0-RESULTS.md) and
+        [W1-RESULTS.md](../blob/main/W1-RESULTS.md). Bets #1–#14 are in
+        [FEEDBACK.md](../blob/main/FEEDBACK.md); the governance bets #15–#23, registered with
+        thresholds before trial 3, are in [W2-BETS.md](../blob/main/W2-BETS.md), and the trial-3
+        results in [TRIAL-3-RESULTS.md](../blob/main/TRIAL-3-RESULTS.md).
         Nothing below is required except the last field; fill in what's relevant.
 
   - type: input
@@ -17,9 +20,9 @@ body:
     attributes:
       label: Which bet or finding does this concern?
       description: |
-        A bet number from FEEDBACK.md (1–14), a finding letter from W0-RESULTS.md (A–E),
-        or "blind spot" if it is something nobody listed.
-      placeholder: "e.g. 12, or: finding B, or: blind spot"
+        A bet number (1–23), a finding letter (A–E in W0-RESULTS.md, F–L in W1-RESULTS.md,
+        M–R in TRIAL-3-RESULTS.md), or "blind spot" if it is something nobody listed.
+      placeholder: "e.g. 16, or: finding M, or: blind spot"
 
   - type: dropdown
     id: kind

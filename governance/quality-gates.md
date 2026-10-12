@@ -7,6 +7,11 @@ Controls run at **increasing frequency and decreasing cost** (shift-left). Not o
 > were placeholders, so the coherence gate and the security gate executed nothing while appearing in
 > every governance review. The status column below is therefore load-bearing.
 
+> **What "blocking" means today: red does not go to `main`, by convention.** Branch protection is not
+> available on the current git platform, so no gate can physically stop a merge. Every merge to
+> `main` is checked green afterwards, and a red `main` is repaired before anything else. Whether the
+> convention holds is bet **#15** in [`../W2-BETS.md`](../W2-BETS.md).
+
 ## Terminology (harmonised)
 
 - **Blocking** — prevents merge or a state transition. In CI: no `allow_failure` / `continue-on-error`.
@@ -17,7 +22,8 @@ Controls run at **increasing frequency and decreasing cost** (shift-left). Not o
 
 | # | Gate | When | What it verifies | Status |
 |---|---|---|---|---|
-| 1 | Plan review | pre-code | The AI's plan is faithful to the spec | practice |
+| 1 | Plan review | pre-code | The AI's plan is faithful to the spec | practice — made measurable as bet **#18** |
+| **1b** | **Visual review** | pre-PR, only for FRs with screens | Someone **looks** at the screen and writes down what they looked at; any gap becomes a change request **before** the fix | practice (added after wave 1, finding **H**) |
 | 2 | FR-ID convention | every commit | Branch/commit cites an FR-ID (or TF-ID) | convention |
 | 3 | **Coherence gate** | every PR | spec ↔ test ↔ code (4 kinds) | **advisory — by design** |
 | **3b** | **Documentation coherence lint** | every PR | doc ↔ doc / doc ↔ reality (status, inline totals, dead refs, resolved open points, role-mapping drift) | **blocking** — [`gen_traceability.py`](../scripts/gen_traceability.py), [`coherence_docs_lint.py`](../scripts/coherence_docs_lint.py) |
@@ -65,6 +71,38 @@ Both fixes are marked `HARDENED` in the source.
   [`gen_traceability.py`](../scripts/gen_traceability.py), with `--check` in CI. *One fact, one home.*
 - **Criterion 9 wired into `/ready`** — a spec does not pass G1 while a Critical or High open point
   listing it is unresolved. See [`open-points.md`](open-points.md).
+
+## What the gates caught in waves 0–1, and when one is removed
+
+Out of 226 CI runs, 39 were red. They were stopped by: format and style 14, the **security floor 7**
+(real published vulnerabilities in a dependency), the **documentation lint 7** (real drift), **type
+check 5** (real defects), tests 3, integration smoke 1, install failures 4 (noise). Never red: the
+frontend job, the FE↔BE contract check, the architecture lint.
+
+**A red run in CI is a lower bound.** Most catches happen locally, before the push, when the builder
+runs the checks and fixes what they find. So a gate is **removed** only if, for **two waves in a
+row**, it is never red in CI **and** no PR declares that it caught something. Each PR states this in
+one line: *"caught by the gates: …"*. The check is repeated at every wave close. Whether this rule
+ever actually removes a gate is bet **#21**.
+
+**Every new check is verified by breaking it** before it is trusted, and again after any fix to it.
+Introduce the defect it guards against and confirm it turns red. This rule exists because several
+guards were green while checking the wrong thing (finding **G**).
+
+## Wave sign-off minute (gate 5)
+
+Until the client's platform is available, sign-off arrives through chat or a call, and is written
+into the wave file. The minute always records:
+
+- the **date**, **who** accepted (role and, when there is one, the client referent), **through which
+  channel**, and who transcribed it;
+- **for each FR in the wave**: accepted yes/no, and whether it passed **first time**;
+- the open **reservations**, each with its change request or open point.
+
+**First-pass acceptance**, the metric that tests whether G1 works: an FR passes first time if its
+**first** verification produces no change request of type defect, change or new on that FR. A
+clarification does not count. The metric is read from the change-request register, never written by
+hand.
 
 ## Definition of Done (evolves with the gates)
 

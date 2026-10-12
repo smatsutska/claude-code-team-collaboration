@@ -25,27 +25,43 @@ and the **dashboard is generated** from them ([`dashboard.md`](dashboard.md), vi
 | **5** | **`/reconcile` invocations** | Count | Early on, **high is good**: orphan code re-entering the flow beats orphan code staying outside it |
 | **6** | **First-pass acceptance** | ACs accepted without rework at client verification ÷ total ACs | Measures whether the specs were genuinely ready — i.e. whether G1 works |
 
-## Wave 0, and how to read it
+## Waves 0 and 1, and how to read them
 
-Numbers in [`dashboard.md`](dashboard.md). Effort is **indexed to the traditional baseline = 100**;
-absolute person-days are commercial and are not published in this repository (see
+Numbers in [`dashboard.md`](dashboard.md), generated from [`w0-actuals.md`](w0-actuals.md) and
+[`w1-actuals.md`](w1-actuals.md). Effort is **indexed to the traditional baseline = 100**; absolute
+person-days and costs are not published in this repository (see
 [`../ANONYMIZATION.md`](../ANONYMIZATION.md)).
 
-**The caveats are part of the metric, not a disclaimer appended to it.** Wave 0 was executed by the
-harness's designers, not by the seven-person team; it is structurally anomalous because most of its
-cost was one-off harness investment; and it compares human *supervision* effort against a traditional
-*build* estimate. All three are stated in the generated dashboard so they travel with the number.
+**The caveats are part of the metric, not a disclaimer appended to it.** Every governed line was built
+by the method's author, not by the team the model is written for. Only **build** effort is measured,
+so the uplift is a ceiling. Wave 0 is anomalous because of one-off investment in the gates. All of
+this is stated in the generated dashboard so it travels with the number.
 
-**Metric 5 has a reading problem right now.** Zero `/reconcile` invocations is what perfect discipline
-looks like and also what "nobody tested the boundary" looks like. With the designers as the only
-operators, it is the second. The metric becomes informative when the real team runs a wave.
+**Metric 5 still has a reading problem.** Zero `/reconcile` invocations in both waves. In wave 1 the
+code written outside the flow (the parallel trials) was mined for rules instead of reconciled, so the
+recovery path was bypassed by a different practice (finding **F**).
 
-## The metric we are not collecting, and should be
+**Metric 6 is now measured**, and has a validity problem: the first verification was internal, and the
+wave sign-off was transcribed by the person who built the wave. Bet **#17** is about making it
+independent.
 
-**Effort on the harness versus effort on features.** Wave 0 added five gates. We assert that this is
-one-off investment that will not recur — which is convenient, and unmeasured. The failure mode where
-the harness becomes the work is exactly the kind a team cannot see from inside. Recorded as a gap in
-[`w0-actuals.md`](w0-actuals.md) rather than quietly omitted.
+**Wave 2 is in progress.** [`w2-actuals.md`](w2-actuals.md) holds the trial-3 window only: process
+counts, review counts and defect classes, but no effort yet. Merges are counted by kind of review
+(native, second person before merge, waiver, none) because a binary "with review / without" hid the
+pattern (finding **P** in [`../TRIAL-3-RESULTS.md`](../TRIAL-3-RESULTS.md)).
+
+**Per-person effort left the working repository after wave 1.** That repository is bound for the
+client's platform, and hours of identifiable people are not evidence about the method. Wave totals
+stay in the plan.
+
+## The metrics we are not collecting, and should be
+
+**Effort on the harness versus effort on features.** Since wave 1 it is proxied by the share of
+changed lines spent on specs, governance, scripts and CI: 37% in wave 0, 28% in wave 1, 22% in the
+following week. Lines are not hours, so this is a trend, not a measurement.
+
+**The functional team's effort.** Without it, an uplift on build could simply be cost moved upstream
+(finding **J**). From wave 2 it is measured, and bet **#22** depends on it.
 
 ## The two questions these numbers must answer
 

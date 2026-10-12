@@ -28,9 +28,11 @@ from the migration report; **effort** is a human tally, because it is not deriva
 ## Delivery (from the migration reconciliation report)
 - rows_rejected_pct_w0: ~2%         # every rejected row carries a traced reason
 
+## Acceptance (measured after wave 1, from the change-request register)
+- first_pass_w0: 6/6                # first verification internal; see bet #17
+
 ## Not yet available
-- first_pass_acceptance_pct_w0:     # requires client UAT / sign-off (has not happened yet)
-- uat_defects_w0:                   # idem
+- uat_defects_w0:                   # requires client UAT (has not happened yet)
 - mean_lead_time_days_w0:           # measurable (spec Approved → merge), to be consolidated
 
 ## Not collected, and it should be
